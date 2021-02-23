@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import Link from 'next/link'
 import styles from '../styles/Home.module.css'
 
 export default function Home() {
@@ -10,31 +11,36 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>          
+        <h1 className={styles.title}>
           Well hello there
         </h1>
 
-        <p className={styles.description}></p>
+        <p className={styles.description}>hi</p>
 
         <div className={styles.grid}>
-          <a href="" className={styles.card}>
-            <h3>Greeting</h3>
-          </a>
+          <Link href="http://localhost:3000/pageWithHexagon">
+            <a className={styles.card}>
+              <h3>go to page with hexagon</h3>
+            </a>
+          </Link>
 
-          <a href="" className={styles.card}>
-            <h3>Salut</h3>
-            <p></p>
-          </a>
+          <Link href="http://localhost:3000/api/hello">
+            <a className={styles.card}>
+              <h3>go to hello API</h3>
+            </a>
+          </Link>
 
-          <a href="" className={styles.card}>
-            <h3>Hilsen</h3>
-            <p></p>
-          </a>
+          <Link href="">
+            <a className={styles.card}>
+              <h3>Hello</h3>
+            </a>
+          </Link>
 
-          <a href="" className={styles.card}>
-            <h3>Grüße</h3>
-            <p></p>
-          </a>
+          <Link href="">
+            <a className={styles.card}>
+              <h3>Grüße</h3>
+            </a>
+          </Link>
         </div>
       </main>
 
