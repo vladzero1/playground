@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import Link from 'next/link'
+import { initializeApollo } from '../lib/apolloClient';
 import styles from '../styles/Home.module.css'
 
 export default function Home() {
@@ -20,27 +21,27 @@ export default function Home() {
         <div className={styles.grid}>
           <Link href="http://localhost:3000/pageWithHexagon">
             <a className={styles.card}>
-              <h3>go to page with hexagon</h3>
+              <h3>Page with hexagon</h3>
             </a>
           </Link>
 
           <Link href="http://localhost:3000/api/hello">
             <a className={styles.card}>
-              <h3>go to hello API</h3>
+              <h3>hello API</h3>
             </a>
           </Link>
 
-          <Link href="">
+          <Link href="http://localhost:3000/api/graphql">
             <a className={styles.card}>
-              <h3>Hello</h3>
+              <h3>Apollo Playground</h3>
             </a>
           </Link>
 
-          <Link href="">
+          {/* <Link href="">
             <a className={styles.card}>
               <h3>Grüße</h3>
             </a>
-          </Link>
+          </Link> */}
         </div>
       </main>
 
@@ -48,4 +49,15 @@ export default function Home() {
       </footer>
     </div>
   )
+}
+
+export async function getStaticProps() {
+  const apolloClient = initializeApollo();
+
+  return {
+    props: {
+      initialApolloState: apolloClient.cache.extract(),
+    },
+    revalidate: 1,
+  };
 }

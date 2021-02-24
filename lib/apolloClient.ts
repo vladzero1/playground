@@ -1,37 +1,16 @@
 import { useMemo } from "react";
 import { ApolloClient, createHttpLink, gql, InMemoryCache } from "@apollo/client";
-import { SchemaLink } from "@apollo/client/link/schema";
-import { makeExecutableSchema } from "apollo-server";
-// import schema from "../pages/api/prisma/schema"
-
+import { env } from "process";
 let apolloClient;
 
-const typeDefs = gql`
-  type Query {
-    hello: String
-  }
-`;
-
-const resolvers = {
-  Query: {
-    hello: () => 'Hello world!'
-  },
-};
-
-// const schema = makeExecutableSchema({
-//   typeDefs,
-//   resolvers,
-// });
-
 const httplink = createHttpLink({
-  uri: "https://localhost:3000",
+  uri:'https://localhost:4000',
 })
 function createApolloClient() {
     return new ApolloClient({
         ssrMode: typeof window === 'undefined',
         link: httplink,
         cache: new InMemoryCache(),
-        credentials: 'same-origin'
     });
 }
 
@@ -59,6 +38,6 @@ export function initializeApollo(initialState = null) {
 
 export function useApollo(initialState) {
     const store = useMemo(() => initializeApollo(initialState), [initialState]);
-    // const store = null
+
     return store;
 }
