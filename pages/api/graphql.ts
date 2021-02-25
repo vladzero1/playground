@@ -1,8 +1,9 @@
 import { PrismaClient } from '@prisma/client';
-import { ApolloServer } from 'apollo-server';
-const Query = require('../..//resolver/Query');
-const Mutation = require('../../resolver/Mutation');
-const { typeDefs } = require('../../schema/schema')
+import { ApolloServer } from 'apollo-server-micro';
+const Query = require('../../src/resolver/Query');
+const Mutation = require('../../src/resolver/Mutation');
+const { typeDefs } = require('../../src/schema/schema')
+const { getUserId } = require('../utils');
 
 const prisma = new PrismaClient({
     errorFormat: 'minimal'
@@ -13,20 +14,26 @@ const resolvers = {
     Mutation
 }
 
-const corsOptions = {
-    origin: "http://localhost:3000",
-    credentials: true
-  };
-
 const server = new ApolloServer({
     typeDefs: typeDefs,
     resolvers: resolvers,
-    cors: corsOptions,
-    context: prisma
+    context: ({ req }) => {
+        return {
+            prisma,
+            userId:
+                req && req.headers.authorization
+                    ? getUserId(req)
+                    : null
+        }
+    },
+
 })
 
-server
-    .listen()
-    .then(({ url }) =>
-        console.log(`Server is running on ${url}`)
-    );
+const handler = (server.createHandler({ path: `/api${server.graphqlPath}`}));
+
+export const config = {
+    api: {
+        bodyParser: false,
+    },
+}
+export default handler;

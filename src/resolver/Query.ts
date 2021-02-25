@@ -1,9 +1,9 @@
 export async function allPhotoUrl(parent, args, context, info) {
-    return context.prisma.PhotoUrl
+    return context.prisma.photoUrl
 };
 
 export async function photoUrl(parent, args, context, info) {
-    return context.prisma.PhotoUrl.find(context.PhotoUrl.id === args.id);
+    return context.prisma.photoUrl.findUnique({where: {id: parseInt(args.id)}});
 };
 
 module.exports = {

@@ -5,8 +5,8 @@ import styles from '../styles/Hexagon.module.css';
 import { useLazyQuery, gql } from '@apollo/client'
 
 const GET_IMAGE_QUERY = gql`
-    query getImageQuery($filter: ID!){
-        image(filter: $filter) {
+    query photoUrl($filter: ID!){
+        photoUrl(filter: $filter) {
             url
         }
 } 
@@ -22,8 +22,9 @@ const pageWithHexagon = () => {
     };
 
     if (loading) return <p>Loading ...</p>;
-    if (error) return <p>{error.message} </p>;
-
+    if (error) return (
+        <p>{error.message} </p>
+    )
     return (
         <div>
             <div>
