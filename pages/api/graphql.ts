@@ -1,46 +1,32 @@
-import { gql } from '@apollo/client';
 import { PrismaClient } from '@prisma/client';
-import { ApolloServer, makeExecutableSchema } from 'apollo-server';
-const fs = require('fs')
-const Query = require('./resolver/Query');
-const PhotoUrl = require('./resolver/PhotoUrl');
-const Mutation = require('./resolver/Mutation');
-const { typeDefs } = require('./schema.ts')
+import { ApolloServer } from 'apollo-server';
+const Query = require('../..//resolver/Query');
+const Mutation = require('../../resolver/Mutation');
+const { typeDefs } = require('../../schema/schema')
 
 const prisma = new PrismaClient({
     errorFormat: 'minimal'
 });
 
-const resolver ={
+const resolvers = {
     Query,
-    PhotoUrl,
     Mutation
 }
 
-const resolvers = {
-    Query: {
-        allPhotoUrl: (parent, args, context, info) => context.prisma.PhotoUrl,
-        photoUrl: (parent, args, context, info) => context.prisma.PhotoUrl.find(context.prisma.PhotoUrl.id === args.id),
-    },
-    Mutation:{
-        postPhotoUrl: async (parent, args, context, info) => {
-            const newPhotoUrl = await context.prisma.PhotoUrl.create({
-                data: {
-                    url: args.url
-                }
-            });
-            return newPhotoUrl;
-        }
-    }
-};
-
-const graphqlSchema = makeExecutableSchema({
-    typeDefs: typeDefs,
-    resolvers: resolver
-});
+const corsOptions = {
+    origin: "http://localhost:3000",
+    credentials: true
+  };
 
 const server = new ApolloServer({
-    schema: graphqlSchema,
+    typeDefs: typeDefs,
+    resolvers: resolvers,
+    cors: corsOptions,
     context: prisma
-}).listen(4000);
+})
 
+server
+    .listen()
+    .then(({ url }) =>
+        console.log(`Server is running on ${url}`)
+    );

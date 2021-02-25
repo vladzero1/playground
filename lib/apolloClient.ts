@@ -1,11 +1,12 @@
 import { useMemo } from "react";
 import { ApolloClient, createHttpLink, gql, InMemoryCache } from "@apollo/client";
-import { env } from "process";
+
 let apolloClient;
 
-const httplink = createHttpLink({
-  uri:'https://localhost:4000',
-})
+const httplink =  createHttpLink({
+    uri: 'http://localhost:4000',
+    credentials: 'same-origin'
+  })
 function createApolloClient() {
     return new ApolloClient({
         ssrMode: typeof window === 'undefined',

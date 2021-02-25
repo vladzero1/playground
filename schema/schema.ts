@@ -9,7 +9,7 @@ type Mutation {
 }
 
 type PhotoUrl{
-    id: ID
-    url: String
+    id: ID!
+    url: String!
 }
 `
