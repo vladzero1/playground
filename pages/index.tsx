@@ -19,19 +19,19 @@ export default function Home() {
         <p className={styles.description}>hi</p>
 
         <div className={styles.grid}>
-          <Link href="http://localhost:3000/pageWithHexagon">
+          <Link href= "/pageWithHexagon">
             <a className={styles.card}>
               <h3>Page with hexagon</h3>
             </a>
           </Link>
 
-          <Link href="http://localhost:3000/api/hello">
+          <Link href="/api/hello">
             <a className={styles.card}>
               <h3>hello API</h3>
             </a>
           </Link>
 
-          <Link href="http://localhost:3000/api/graphql">
+          <Link href="/api/graphql">
             <a className={styles.card}>
               <h3>Apollo Playground</h3>
             </a>
