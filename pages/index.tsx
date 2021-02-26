@@ -1,3 +1,4 @@
+import React from 'react';
 import Head from 'next/head'
 import Link from 'next/link'
 import { initializeApollo } from '../lib/apolloClient';
@@ -21,7 +22,7 @@ export default function Home() {
         <div className={styles.grid}>
           <Link href= "/pageWithHexagon">
             <a className={styles.card}>
-              <h3>Page with hexagon</h3>
+              <h3>Page with Hexagon</h3>
             </a>
           </Link>
 

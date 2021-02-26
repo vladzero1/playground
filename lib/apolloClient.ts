@@ -1,11 +1,10 @@
 import { useMemo } from "react";
-import { ApolloClient, createHttpLink, gql, InMemoryCache } from "@apollo/client";
+import { ApolloClient, createHttpLink, InMemoryCache } from "@apollo/client";
 
 let apolloClient;
 
 const httplink =  createHttpLink({
     uri: '/api/graphql',
-    // fetchOptions: 'include'
   })
 function createApolloClient() {
     return new ApolloClient({
