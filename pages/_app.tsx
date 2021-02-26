@@ -1,13 +1,3 @@
-// ReactDOM.render(
-//   <BrowserRouter>
-//     <ApolloProvider client={client}>
-//       <App />
-//     </ApolloProvider>
-//   </BrowserRouter>,
-
-//   document.getElementById('root')
-// );
-
 import { ApolloProvider } from '@apollo/client';
 import { useApollo } from '../lib/apolloClient'
 import '../styles/globals.css'

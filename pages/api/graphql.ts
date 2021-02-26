@@ -20,20 +20,22 @@ const server = new ApolloServer({
     context: ({ req }) => {
         return {
             prisma,
-            userId:
-                req && req.headers.authorization
-                    ? getUserId(req)
-                    : null
+            // userId:
+            //     req && req.headers.authorization
+            //         ? getUserId(req)
+            //         : null
         }
     },
+    
 
 })
 
-const handler = (server.createHandler({ path: `/api${server.graphqlPath}`}));
+const handler = (server.createHandler({ path: `/api${server.graphqlPath}` }));
+  
+export default handler;
 
 export const config = {
     api: {
         bodyParser: false,
     },
 }
-export default handler;
